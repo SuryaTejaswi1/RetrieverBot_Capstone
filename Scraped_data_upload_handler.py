@@ -1,25 +1,29 @@
+
 import subprocess
 
 def git_operations():
-    try:
-        # Step 1: Stage all changes
-        print("Staging all changes...")
-        subprocess.run(["git", "add", "."], check=True)
+            try:
+                # Stage the CSV files
+                subprocess.run([
+                    "git", "add",
+                    "dil_scraped_data.csv",
+                    "isss_scraped_data.csv",
+                    "research_data.csv",
+                ], check=True)
 
-        # Step 2: Commit the changes with a message
-        print("Committing changes...")
-        commit_message = "Update scraped data and code"
-        subprocess.run(["git", "commit", "-m", commit_message], check=True)
+                # Force add scraping_log.log
+                subprocess.run(["git", "add", "-f", "scraping_log.log"], check=True)
 
-        # Step 3: Push the changes to the remote repository
-        print("Pushing changes to remote...")
-        subprocess.run(["git", "push"], check=True)
+                # Commit the changes
+                subprocess.run(["git", "commit", "-m", "Update scraped data files"], check=True)
 
-        print("Git operations completed successfully.")
+                # Push to the remote repository
+                subprocess.run(["git", "push"], check=True)
 
-    except subprocess.CalledProcessError as e:
-        print(f"Error during Git operations: {e}")
-        print("Make sure your repository is properly initialized and connected to a remote.")
+                print("CSV files pushed to Git successfully.")
+            except subprocess.CalledProcessError as e:
+                print(f"Error during Git push: {e}")
+
 
 if __name__ == "__main__":
     git_operations()
