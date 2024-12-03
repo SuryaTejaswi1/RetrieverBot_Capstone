@@ -31,5 +31,4 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/retrieverbot:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/retrieverbot:${{ github.sha }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/retrieverbot:$(date +%s)
