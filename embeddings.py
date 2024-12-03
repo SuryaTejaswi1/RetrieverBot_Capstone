@@ -21,7 +21,7 @@ OPENAI_API_KEY = os.getenv("openai_api_key")
 
 # Configure logging
 logging.basicConfig(
-    filename="C:/Users/Surya/RetrieverBot_Capstone/scraping_log.log",
+    filename="./scraping_log.log",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
@@ -108,8 +108,6 @@ for idx, row in df_csee.iterrows():
 logging.info("Research data added to Chroma and saved to disk.")
 log_update_date('Completed Successfully- Data added to chroma db')
 
-
-# In[ ]:
 
 
 

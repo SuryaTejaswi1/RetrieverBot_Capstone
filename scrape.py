@@ -13,11 +13,9 @@ from datetime import datetime
 # Specify the path to your ChromeDriver
 service = Service(executable_path="C:/Users/Surya/RetrieverBot_Capstone/chromedriver_win32/chromedriver.exe")
 
-
-
 # Configure logging
 logging.basicConfig(
-    filename="C:/Users/Surya/scraping_log.log",
+    filename="scraping_log.log",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
