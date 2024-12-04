@@ -38,8 +38,12 @@
 ## Overview
 
 This project is a conversational AI chatbot designed to assist students with information related to courses, research, and general queries. It integrates with Dialogflow for intent recognition and uses OpenAI's GPT-3.5-turbo model for generating responses. The application leverages LangChain for conversational retrieval and Chroma for vector storage of embeddings.
+## Research Questions
+- How effective is the Retriever Bot in improving access to specific information about coursework, faculty, and other program details, as measured by user satisfaction and reduced information search time?
+- How can conversational AI enhance CPT and OPT registration guidance for international students, and how helpful will it be in improving user satisfaction? 
+- How accurately can the chatbot respond to diverse student inquiries using up-to-date collected data from the UMBC Data Science website, and how well does this meet students' needs?
 
-## Features
+## Features of chatbot
 
 - **Intent Handling**: Custom intent mapping and management using Dialogflow.
 - **Conversational Retrieval**: Retrieves relevant information based on user queries.
@@ -52,7 +56,7 @@ This project is a conversational AI chatbot designed to assist students with inf
 
 ## Architecture
 
-![Architecture Diagram](architecture.png)
+![Architecture Diagram](assets\architecture.png)
 
 *Note: Include an architecture diagram showing how different components interact within your system.*
 
@@ -192,18 +196,6 @@ Optionally, you can use Docker Compose for more complex setups.
 
 Create a `docker-compose.yml`:
 
-```yaml
-version: '3.8'
-
-services:
-  app:
-    build: .
-    ports:
-      - '5000:5000'
-    env_file:
-      - .env
-```
-
 Run:
 
 ```bash
@@ -264,6 +256,7 @@ For production deployment, consider using a cloud provider:
 - **HTTPS**: Use HTTPS for all communications, especially when exposing webhooks.
 - **Authentication**: Implement authentication for your endpoints if necessary.
 
-### Logging and Monitoring
+### Logging
+We are maintaining logs in `scrape_log.log` file
 
 .
