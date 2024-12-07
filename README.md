@@ -16,7 +16,7 @@
 10. [Logging](#logging)
 11. [Future Enhancements](#future-enhancements)
 12. [Results](#results)
-13. [License](#license)
+
 
 ---
 
