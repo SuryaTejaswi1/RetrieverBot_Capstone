@@ -9,8 +9,6 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_openai import OpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import pandas as pd
-import logging
-from datetime import datetime
 from dotenv import load_dotenv
 import os
 
@@ -19,27 +17,16 @@ load_dotenv()
 
 OPENAI_API_KEY = os.getenv("openai_api_key")
 
-# Configure logging
-logging.basicConfig(
-    filename="./scraping_log.log",
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
-def log_update_date(message):
-    """Log a custom message with the current date."""
-    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logging.info(f"{message} - Date: {current_date}")
-
 
 # Reading the CSV files into pandas DataFrames
-df_dil = pd.read_csv('dil_scraped_data.csv')
-df_isss = pd.read_csv('isss_scraped_data.csv')
-df_csee = pd.read_csv('research_data.csv')
+df_dil = pd.read_csv('Data/dil_scraped_data.csv')
+df_isss = pd.read_csv('Data/isss_scraped_data.csv')
+df_csee = pd.read_csv('Data/research_data.csv')
 
 data = pd.concat([df_dil, df_isss], ignore_index=True)
 # Ensure the 'Text' column contains strings and handle missing values
 data["Text"] = data["Text"].fillna("").astype(str)
-logging.info("Embeddings Creation")
+
 # Initialize text splitter and embedding model
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 embedding_model = OpenAIEmbeddings(model="text-embedding-ada-002")
@@ -78,7 +65,6 @@ for idx, row in data.iterrows():
     except Exception as e:
         print(f"Error adding texts for row {idx}: {e}")
 
-logging.info("Data added to Chroma and saved to disk.")
 
 # Initialize another persistent directory
 persist_directory_research = "chroma_store1"
@@ -105,8 +91,6 @@ for idx, row in df_csee.iterrows():
         metadatas=[metadata]
     )
 
-logging.info("Research data added to Chroma and saved to disk.")
-log_update_date('Completed Successfully- Data added to chroma db')
 
 
 

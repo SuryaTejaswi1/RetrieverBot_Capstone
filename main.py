@@ -75,6 +75,7 @@ async def webhook(request: Request):
     # Handle the Default Welcome Intent
     if intent_name == "Default Welcome Intent":
         memory.chat_memory.clear()
+
         log_file_path = "./scraping_log.log"
         last_updated_date = get_last_updated_date(log_file_path)
         response_text = (

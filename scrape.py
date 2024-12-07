@@ -24,7 +24,6 @@ def log_update_date(message):
     current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logging.info(f"{message} - Date: {current_date}")
 
-
 # Function to retain only English words and recognized punctuation
 def extract_english_text(text):
     pattern = r"[A-Za-z0-9\s.,!?\"'():;-]"
@@ -358,7 +357,7 @@ finally:
 df_dil = pd.DataFrame(results, columns=['Section', 'Link', 'Title', 'Text'])
 
 # Save the DataFrame to an CSV file
-df_dil.to_csv('dil_scraped_data.csv', index=False)
+df_dil.to_csv('Data/dil_scraped_data.csv', index=False)
 
 # Set up Chrome options
 chrome_options = Options()
@@ -420,7 +419,7 @@ finally:
 df_isss = pd.DataFrame(results, columns=['Section', 'Link', 'Title', 'Text'])
 
 # Save the DataFrame to an CSV file
-df_isss.to_csv('isss_scraped_data.csv', index=False)
+df_isss.to_csv('Data/isss_scraped_data.csv', index=False)
 
 # Set up Chrome options
 chrome_options = Options()
@@ -469,5 +468,33 @@ finally:
 # Convert results to a DataFrame
 df_csee = pd.DataFrame(results, columns=['Section', 'Link', 'Title', 'Text'])
 # Save the DataFrame to an CSV file
-df_csee.to_csv('research_data.csv', index=False)
+df_csee.to_csv('Data/research_data.csv', index=False)
 
+import subprocess
+
+def git_operations():
+            try:
+                # Stage the CSV files
+                subprocess.run([
+                    "git", "add",
+                    "dil_scraped_data.csv",
+                    "isss_scraped_data.csv",
+                    "research_data.csv",
+                ], check=True)
+
+                # Force add scraping_log.log
+                subprocess.run(["git", "add", "-f", "scraping_log.log"], check=True)
+
+                # Commit the changes
+                subprocess.run(["git", "commit", "-m", "Update scraped data files"], check=True)
+
+                # Push to the remote repository
+                subprocess.run(["git", "push"], check=True)
+
+                print("CSV files pushed to Git successfully.")
+            except subprocess.CalledProcessError as e:
+                print(f"Error during Git push: {e}")
+
+
+if __name__ == "__main__":
+    git_operations()

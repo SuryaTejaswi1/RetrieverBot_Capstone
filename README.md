@@ -1,74 +1,87 @@
-# **Retriever Bot**
+# Retriever Bot
 
-**Table of Contents**
-
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Repository Structure](#repository-structure)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-  - [1. Clone the Repository](#1-clone-the-repository)
-  - [2. Create a Virtual Environment](#2-create-a-virtual-environment)
-  - [3. Install Dependencies](#3-install-dependencies)
-  - [4. Set Up Environment Variables](#4-set-up-environment-variables)
-- [Usage](#usage)
-  - [Running the Application Locally](#running-the-application-locally)
-  - [Exposing the Application to Dialogflow](#exposing-the-application-to-dialogflow)
-  - [Running the Scraping Script](#running-the-scraping-script)
-- [Dockerization](#dockerization)
-  - [Building the Docker Image](#building-the-docker-image)
-  - [Running the Docker Container](#running-the-docker-container)
-  - [Using Docker Compose](#using-docker-compose)
-- [Continuous Integration and Deployment](#continuous-integration-and-deployment)
-  - [Docker Build and Push Workflow](#docker-build-and-push-workflow)
-- [Scheduling Scraping ](#scheduling-scraping)
-  - [Scheduled Scraping Workflow](#scheduled-scraping-workflow)
-  - [Workflow Steps](#workflow-steps)
-- [Environment Variables](#environment-variables)
-- [Acknowledgements](#acknowledgements)
-- [Additional Notes](#additional-notes)
-  - [Setting Up Dialogflow](#setting-up-dialogflow)
-  - [Deployment](#deployment)
-  - [Security Considerations](#security-considerations)
-  - [Logging ](#logging-and-monitoring)
+## Table of Contents
+1. [Overview](#overview)
+2. [Research Questions](#research-questions)
+3. [Features](#features)
+4. [Architecture](#architecture)
+5. [Implementation Details](#implementation-details)
+6. [Repository Structure](#repository-structure)
+7. [Prerequisites](#prerequisites)
+8. [How to Get Started](#how-to-get-started)
+   - [Quick Start Guide](#quick-start-guide)
+   - [Colab Notebooks](#colab-notebooks)
+   - [Advanced Setup](#advanced-setup)
+9. [Workflow Steps](#workflow-steps)
+10. [Logging](#logging)
+11. [Future Enhancements](#future-enhancements)
+12. [Results](#results)
+13. [License](#license)
 
 ---
 
 ## Overview
 
-This project is a conversational AI chatbot designed to assist students with information related to courses, research, and general queries. It integrates with Dialogflow for intent recognition and uses OpenAI's GPT-3.5-turbo model for generating responses. The application leverages LangChain for conversational retrieval and Chroma for vector storage of embeddings.
+Retriever Bot is a cutting-edge conversational AI chatbot specifically designed for UMBC Data Science students to assist with a variety of information needs, including:
+
+- 📘 **Course-related queries**
+- 🧑‍🔬 **Faculty research details**
+- 💬 **General program inquiries**
+
+The chatbot integrates Dialogflow for intent recognition and utilizes OpenAI's GPT-3.5-turbo model for generating dynamic, context-aware responses. To enhance conversational retrieval capabilities, the application leverages LangChain and uses Chroma for efficient vector storage of embeddings.
+
 ## Research Questions
-- How effective is the Retriever Bot in improving access to specific information about coursework, faculty, and other program details, as measured by user satisfaction and reduced information search time?
-- How can conversational AI enhance CPT and OPT registration guidance for international students, and how helpful will it be in improving user satisfaction? 
-- How accurately can the chatbot respond to diverse student inquiries using up-to-date collected data from the UMBC Data Science website, and how well does this meet students' needs?
 
-## Features of chatbot
+The following research questions guide the development and evaluation of Retriever Bot:
 
-- **Intent Handling**: Custom intent mapping and management using Dialogflow.
-- **Conversational Retrieval**: Retrieves relevant information based on user queries.
-- **Feedback Mechanism**: Collects user feedback to improve responses over time.
-- **Meta Data Filtering and Contextual Understanding**: Filters relevant metadata and provides accurate responses using memory for enhanced contextual understanding.
-- **Automated Data Scraping**: Periodically scrapes and updates data embeddings.
-- **Dockerized Deployment**: Containerized application for consistent and scalable deployment.
-- **Continuous Integration and Deployment**: Automated builds and deployments using GitHub Actions.
+1. 🎯 **Effectiveness**: How effective is the Retriever Bot in improving access to specific information about coursework, faculty, and other program details, as measured by user satisfaction and reduced information search time?
+2. 🌎 **CPT/OPT Guidance**: How can conversational AI enhance CPT and OPT registration guidance for international students, and how helpful will it be in improving user satisfaction?
+3. ✅ **Accuracy**: How accurately can the chatbot respond to diverse student inquiries using up-to-date data from the UMBC Data Science website, and how well does this meet students' needs?
 
+## Features
+
+### Core Functionalities
+
+- 🤖 **Intent Handling**: Custom intent mapping and management using Dialogflow for precise query understanding.
+- 🔍 **Conversational Retrieval**: Utilizes LangChain and memory unit for retrieving relevant and contextually accurate information.
+- 🗣️ **Feedback Mechanism**: Gathers user feedback to iteratively improve the bot’s responses.
+- 🛠️ **Meta Data Filtering and Contextual Understanding**: Leverages memory for enhanced contextual responses and metadata filtering.
+- 🔄 **Automated Data Scraping**: Periodic scraping and updating of embeddings ensure the chatbot stays current with the latest information.
+
+### Deployment and Scalability
+
+- 🐳 **Dockerized Deployment**: Ensures consistent and scalable deployment across environments.
+- 🚀 **Continuous Integration and Deployment (CI/CD)**: Automated builds and deployments using GitHub Actions streamline updates.
 
 ## Architecture
+The following diagram illustrates the architecture of the Retriever Bot system:
+![Architecture Diagram](assets/architecture.png)
 
-![Architecture Diagram](assets\architecture.png)
+### Architecture Overview
 
-*Note: Include an architecture diagram showing how different components interact within your system.*
+- 🤖 **Dialogflow**: Handles intent recognition, categorizing user queries into predefined intents for routing to the appropriate response pipeline.
+- 🧠 **LangChain**: Manages conversational retrieval workflows, maintaining context across interactions.
+- 💡 **OpenAI GPT-3.5-turbo**: Generates coherent, context-aware responses tailored to user inputs.
+- 📂 **Chroma**: Stores and manages embeddings for efficient retrieval of relevant data.
+- 🔄 **Automated Data Scraping Pipelines**: Periodically updates the knowledge base by scraping the UMBC Data Science website.
+- 🚀 **CI/CD Pipelines with GitHub Actions**: Automates the building, and deployment of the application.
 
-## Repository Structure
+## Implementation Details
 
-```
+- 🤖 **Dialogflow**: Includes custom intents for academic queries, administrative tasks (e.g., CPT/OPT guidance), and fallback intents for ambiguous queries.
+- 🧠 **LangChain with memory**: Facilitates conversational retrieval, ensuring relevant embeddings are fetched based on query similarity.
+- 📂 **Chroma**: Utilizes OpenAI's Ada 002 text embedding model for high-quality vector representations and efficient retrieval.
+- 🌐 **Selenium**: Used for automated scraping of the UMBC Data Science website(dil.umbc.edu).
+
+## 📁 Repository Structure
+
+```plaintext
 RetrieverBot/
 ├── .github/
 │   └── workflows/
 │       ├── docker-build.yml
 ├── assets/
-│   └── architecture_diagram.png
+│   └── images
 ├── data/
 │   └── ...  # Data files used by the application
 ├── embeddings.py
@@ -86,177 +99,178 @@ RetrieverBot/
 ├── .env.example
 ```
 
-- **.github/workflows/**: Contains GitHub Actions workflows for CI/CD.
-- **assets/**: Images and assets used in documentation.
-- **data/**: Directory for data files and embeddings.
-- **embeddings.py**: Manages embedding models and vector stores.
-- **feedback.py**: Handles user feedback mechanisms.
-- **intent_handler.py**: Manages intent mapping and handling.
-- **main.py**: The main application file.
-- **prompts.py**: Stores prompt templates for different intents.
-- **query_handler.py**: Processes queries and handles retrieval.
-- **scraping.py**: Handles data scraping and preprocessing.
-- **Dockerfile**: Docker configuration for containerizing the app.
-- **requirements.txt**: Python dependencies.
-- **.env.example**: Example environment variables file.
-- **LICENSE**: License information.
+### Key Components
+
+- **`.github/workflows/`**: Contains GitHub Actions workflows for CI/CD automation.
+- **`assets/`**: Stores images and assets for documentation purposes.
+- **`data/`**: Directory for data files and embeddings used by the bot.
+- **`embeddings.py`**: Manages embedding models and vector store interactions.
+- **`feedback.py`**: Implements user feedback mechanisms for iterative improvement.
+- **`intent_handler.py`**: Handles custom intent mapping and management.
+- **`main.py`**: The main application file for running the chatbot.
+- **`prompts.py`**: Stores reusable prompt templates for different intents.
+- **`query_handler.py`**: Processes user queries and handles retrieval operations.
+- **`scraping.py`**: Automates data scraping and preprocessing.
+- **`Dockerfile`**: Configures Docker for containerized deployment.
+- **`requirements.txt`**: Lists Python dependencies for the project.
+- **`.env.example`**: Provides a template for environment variables configuration.
 
 ## Prerequisites
 
-- **Python 3.13**
-- **Docker**
-- **Git**
-- **An OpenAI API Key**
-- **A Dialogflow Agent**
+To run this project, ensure you have the following:
 
-## Installation
+- 🐍 Python 3.13
+- 🐳 Docker
+- 🌲 Git
+- 🔑 An OpenAI API Key
+- 🤖 A Dialogflow Agent
 
-### 1. Clone the Repository
+## How to Get Started
 
-```bash
-git clone https://github.com/yourusername/your-project.git
-cd your-project
-```
+### 🌐 Colab Notebooks
+To make the project more accessible, we provide Jupyter Notebook files that can be run directly on Google Colab. These notebooks include step-by-step examples and allow users to test and interact with various components of the Retriever Bot, including scraping, embedding generation, and chatbot interactions.
 
-### 2. Create a Virtual Environment
+- [Data Scraping](https://colab.research.google.com/drive/your-scraping-notebook-link)
+- [Chatbot Interaction Notebook](https://drive.google.com/file/d/1i1SXSxEjtGyuHH3garqGlijxhPrOZkU_/view?usp=sharing)
 
-It's recommended to use a virtual environment to manage dependencies.
+### Quick Start Guide
 
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+1. 🌀 Clone the repository:
 
-### 3. Install Dependencies
+   ```bash
+   git clone https://github.com/yourusername/retriever-bot.git
+   ```
 
-```bash
-pip install -r requirements.txt
-```
+2. 📂 Navigate to the project directory:
 
-### 4. Set Up Environment Variables
+   ```bash
+   cd retriever-bot
+   ```
 
-Copy the example environment file and fill in your credentials.
+3. 🛠️ Create a Virtual Environment (Recommended):
 
-```bash
-cp .env.example .env
-```
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+4. 📦 Install dependencies:
 
-Fill in `.env` with your OpenAI API key and other necessary variables.
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```env
-OPENAI_API_KEY=your_openai_api_key
-ngrok_authentication= your_ngrok_auth
-```
+5. 🔗 **Set Up Ngrok**:
+   - Download and install [Ngrok](https://ngrok.com/).
+   - Start Ngrok to expose your local application to the web:
 
-## Usage
+     ```bash
+     ngrok http 5000
+     ```
+    **Create a Dialogflow Agent**:
+   - Set up a Dialogflow agent in your Google Cloud project.
+   - Define intents and ensure they match the ones handled in your application.
+   - Set the webhook URL in the Dialogflow console to your Ngrok public URL.
+   
+6. 🤖 Run the Bot:
+   ```bash
+   python main.py
+   ```
+   
+7. 🌐 Access the chatbot in Dialogflow Integration Tab.
 
-### Running the Application Locally
+#### Usage Examples
+Here are some example questions that UMBC Data Science students can ask the Retriever Bot:
 
-```bash
-python main.py
-```
+- "How can I apply for CPT?"
+- "What are the different pathways I can choose as a Data Science student?"
+- "What are the course outcomes of DATA 604"
+- "Are there any research opportunities in the filed of Natural Language Processing?"
 
-The application will start and listen on `http://0.0.0.0:5000`.
+### Advanced Setup 
+#### 🐳 Dockerized Deployment - For a consistent and scalable deployment
+To use the Dockerized Retriever Bot, ensure you have a [Docker Hub](https://hub.docker.com/) account. If you want to reproduce this project or modify it, you need to:
 
-### Exposing the Application to Dialogflow
+- **Create a Docker Hub Account**: Sign up at [Docker Hub](https://hub.docker.com/).
+- **Specify Docker Hub Details in GitHub Secrets**: Add your Docker Hub username, repository, and access token to GitHub Secrets for CI/CD integration.
+  - `DOCKER_USERNAME`: Your Docker Hub username.
+  - `DOCKER_REPO`: Your repository name (e.g., `retriever-bot`).
+  - `DOCKER_ACCESS_TOKEN`: Your Docker Hub access token.
 
-To connect Dialogflow to your local application during development, you can use `ngrok`.
+- ** 🔄 Build and Push the Docker Image**: The GitHub Actions workflow (`docker-build.yml`) automates building and pushing images to Docker Hub.
 
-```bash
-ngrok http 5000
-```
+- ** 🛠️ Pull and Run the Docker Image**: Once updated, use the following commands to pull and run the image:
+  ```bash
+  docker pull your-dockerhub-username/retriever-bot:latest
+  docker run -e OPENAI_API_KEY='<your_openai_api_key>' -p 8080:5000 retriever-bot
+  ```
+Ensure to update the webhook URL whenever modifications are made and access the chatbot in dialogflow Integration.
 
-Copy the HTTPS URL provided by ngrok and set it as your webhook URL in Dialogflow.
+#### 🚀 Docker Build and Push Workflow
 
-### Running the Scraping Script
+- **Workflow File**: Located at `.github/workflows/docker-build.yml`.
+- **Trigger**: Runs on every push to the `main` branch.
+- **Steps**:
+  - Checks out the repository.
+  - Sets up Python.
+  - Installs dependencies.
+  - Runs `scraping.py` which is scheduled monthly.
+  - Commits and pushes any changes.
+  - Triggers the Docker build and push the new image into docker hub if data has changed.
 
-```bash
-python scraping.py
-```
+## Logging
 
-This script will scrape data and update embeddings which can be scheduled for updated information.
+We are maintaining logs in the `scrape_log.log` file to track scraping activities and errors.
 
-## Dockerization
+## 🔮 Future Enhancements
 
-### Building the Docker Image
+### Cloud Hosting for Webhook Stability
+- Deploy the Dockerized backend on a cloud service like Google Cloud Run, AWS Fargate, or Heroku.
+- Obtain a stable public HTTPS endpoint to replace the temporary Ngrok URLs.
+- Automate updates to Dialogflow webhook configurations with CI/CD pipelines.
 
-```bash
-docker build -t your_dockerhub_username/your_repository_name:latest .
-```
+### Continuous Deployment Enhancements
+- Extend CI/CD workflows to:
+  - Build and push Docker images directly to the cloud hosting platform.
+  - Ensure all updates are deployed without manual intervention.
 
-### Running the Docker Container
+### Multi-User Session Management
+- Introduce session handling to allow multiple users to interact simultaneously without losing context.
 
-```bash
-docker run -d -p 5000:5000 --env-file .env your_dockerhub_username/your_repository_name:latest
-```
+### Feedback Integration and Auto-Training
+- Enhance chatbot performance by integrating user feedback into automatic training pipelines.
+- Continuously improve response accuracy and relevance.
 
-### Using Docker Compose
+### Backend Database Integration
+- Implement a database for efficient data persistence and management.
+- Use cases include storing user preferences, conversation history, and feedback.
+- Enable detailed analytics and reporting for chatbot interactions.
 
-Optionally, you can use Docker Compose for more complex setups.
+### Caching for Performance Optimization
+- Implement caching mechanisms (e.g., Redis) for frequently asked questions and repetitive queries.
+- Reduce response time and improve user experience.
 
-Create a `docker-compose.yml`:
+## Results
 
-Run:
+Below are some examples of interactions with the Retriever Bot:
 
-```bash
-docker-compose up -d
-```
+- **CPT Query:**
 
-## Continuous Integration and Deployment
+  ![CPT Query](assets/CPT.png)
 
-The project uses GitHub Actions to automate the build and deployment process.
+- **Pathways Information:**
 
-### Docker Build and Push Workflow
+  ![Pathways Info](assets/Pathways.png)
 
-Located at `.github/workflows/docker-build.yml`, this workflow triggers on every push to the `main` branch.
+- **Welcome Message:**
 
-### Workflow Steps
+  ![Welcome Message](assets/Welcome Message.png)
 
-- Checks out the repository.
-- Sets up Python.
-- Installs dependencies.
-- Runs `scraping.py`.
-- Commits and pushes any changes.
-- Triggers the Docker build and push workflow if data has changed.
 
-## Environment Variables
+## License
 
-All sensitive information and configuration options are managed via environment variables.
-
-## Acknowledgements
-
-- [OpenAI](https://www.openai.com) for the GPT-3.5-turbo model.
-- [LangChain](https://langchain.readthedocs.io/en/latest/) for conversational AI components.
-- [Dialogflow](https://cloud.google.com/dialogflow) for intent handling.
-- [Chroma](https://www.trychroma.com/) for vector storage.
-- [GitHub Actions](https://github.com/features/actions) for CI/CD pipelines.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-## Additional Notes
+We welcome contributions to enhance the functionality of Retriever Bot. Feel free to submit issues or pull requests to make this project even better!
 
-### Setting Up Dialogflow
-
-- **Create an Agent**: Set up a Dialogflow agent in your Google Cloud project.
-- **Configure Intents**: Define intents and ensure they match the ones handled in your application.
-- **Set Webhook URL**: In the Dialogflow console, set the webhook URL to your application's public endpoint.
-
-### Deployment
-
-For production deployment, consider using a cloud provider:
-
-- **Heroku**
-- **AWS ECS/Fargate**
-- **Google Cloud Run**
-- **Azure App Service**
-
-### Security Considerations
-
-- **API Keys**: Never commit API keys or secrets to version control.
-- **HTTPS**: Use HTTPS for all communications, especially when exposing webhooks.
-- **Authentication**: Implement authentication for your endpoints if necessary.
-
-### Logging
-We are maintaining logs in `scrape_log.log` file
-
-.
