@@ -59,7 +59,7 @@ The following diagram illustrates the architecture of the Retriever Bot system:
 
 ### Architecture Overview
 
-- 🤖 **Dialogflow**: Handles intent recognition, categorizing user queries into predefined intents for routing to the appropriate response pipeline.
+- 🤖 **Dialogflow**: Handles intent recognition and context management categorizing user queries into predefined intents for routing to the appropriate response pipeline.
 - 🧠 **LangChain**: Manages conversational retrieval workflows, maintaining context across interactions.
 - 💡 **OpenAI GPT-3.5-turbo**: Generates coherent, context-aware responses tailored to user inputs.
 - 📂 **Chroma**: Stores and manages embeddings for efficient retrieval of relevant data.
@@ -130,8 +130,8 @@ To run this project, ensure you have the following:
 ### 🌐 Colab Notebooks
 To make the project more accessible, we provide Jupyter Notebook files that can be run directly on Google Colab. These notebooks include step-by-step examples and allow users to test and interact with various components of the Retriever Bot, including scraping, embedding generation, and chatbot interactions.
 
-- [Data Scraping](https://colab.research.google.com/drive/your-scraping-notebook-link)
-- [Chatbot Interaction Notebook](https://drive.google.com/file/d/1i1SXSxEjtGyuHH3garqGlijxhPrOZkU_/view?usp=sharing)
+- [Data Scraping](https://drive.google.com/file/d/1i1SXSxEjtGyuHH3garqGlijxhPrOZkU_/view?usp=sharing)
+- [Chatbot Interaction Notebook](https://colab.research.google.com/drive/1IgwI92aAHWaNaYtQUwxhrqZUbuWscBHB?usp=sharing)
 
 ### Quick Start Guide
 
@@ -168,7 +168,7 @@ To make the project more accessible, we provide Jupyter Notebook files that can 
      ```
     **Create a Dialogflow Agent**:
    - Set up a Dialogflow agent in your Google Cloud project.
-   - Define intents and ensure they match the ones handled in your application.
+   - Define intents (Get_Course_info,Get_CPT_OPT_info,Get_General_info, Get_Research_info ) and ensure they are trained with some initial phrases.
    - Set the webhook URL in the Dialogflow console to your Ngrok public URL.
    
 6. 🤖 Run the Bot:
@@ -263,14 +263,8 @@ Below are some examples of interactions with the Retriever Bot:
 
 - **Welcome Message:**
 
-  ![Welcome Message](assets/Welcome Message.png)
+  ![Welcome Message](assets/WelcomeMessage.png)
 
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
 
 We welcome contributions to enhance the functionality of Retriever Bot. Feel free to submit issues or pull requests to make this project even better!
 
