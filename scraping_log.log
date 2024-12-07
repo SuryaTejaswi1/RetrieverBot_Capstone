@@ -906,3 +906,6 @@
 2024-12-03 03:34:40,514 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
 2024-12-03 03:34:40,698 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
 2024-12-03 03:34:41,192 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2024-12-07 12:24:46,923 - INFO - Scraping started for dil.umbc.edu
+2024-12-07 12:34:15,308 - INFO - Scraping completed for dil.umbc.edu
+2024-12-07 12:34:21,303 - INFO - Scraping started for ISSS website
